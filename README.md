@@ -44,6 +44,15 @@ This project displays a digital clock on the left side of a 64×32 RGB LED matri
   }
   ```
 
+- A settings.toml file on the CIRCUITPY root for Adafruit IO and timezone configuration:
+
+```toml
+
+AIO_USERNAME = "your_username"
+AIO_KEY = "your_key"
+
+```
+
 ## Setup & Installation
 
 1. **Install CircuitPython 9.x on the MatrixPortal board.**  
