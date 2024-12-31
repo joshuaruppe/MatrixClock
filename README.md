@@ -44,7 +44,7 @@ This project displays a digital clock on the left side of a 64×32 RGB LED matri
   }
   ```
 
-- A settings.toml file on the CIRCUITPY root for Adafruit IO and timezone configuration:
+- A settings.toml file on the CIRCUITPY root for Adafruit IO authentication:
 
   ```toml
 
