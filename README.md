@@ -6,8 +6,7 @@ This project displays a digital clock on the left side of a 64×32 RGB LED matri
 ## Features
 
 - **Clock on the Left**: Shows current hour and minute in two large labels.
-- **Green Divider**: A single-column divider line.
-- **Matrix Rain on the Right**: Randomized “falling columns” animation inspired by “The Matrix” aesthetic.
+- **Matrix Code on the Right**: Randomized “falling columns” animation inspired by “The Matrix” aesthetic.
 - **Wi-Fi Time Sync**: Fetches current time from an NTP server based on your `secrets.py` configuration.
 
 ## Hardware
@@ -82,19 +81,14 @@ This project displays a digital clock on the left side of a 64×32 RGB LED matri
    - Use a 5V power supply that can supply sufficient current for the LED matrix.
 
 5. **Eject / Unmount `CIRCUITPY` and reset the board.**  
-   - The MatrixPortal will connect to Wi-Fi, sync the time from NTP, and start displaying the clock and the Matrix rain animation.
+   - The MatrixPortal will connect to Wi-Fi, sync the time from NTP, and start displaying the clock and the Matrix code animation.
 
 ## Usage & Configuration
 
 - **Time Sync**: The board uses your `secrets.py` credentials to connect to Wi-Fi, then fetches time from an NTP server for the timezone specified.
 - **Dimensions**: The code is set for a 64×32 matrix. If you have a different size panel, adjust `WIDTH` and `HEIGHT` constants near the top of `code.py`.
-- **Matrix Rain Characters**: The array `MATRIX_CHARS` in the code defines which characters get “rained.” In the default code, each non-space character simply appears as a green pixel (no actual letter glyph rendering). You can customize or reduce them for variety or performance reasons.
+- **Matrix Code Characters**: The array `MATRIX_CHARS` in the code defines which characters get “rained.” In the default code, each non-space character simply appears as a green pixel (no actual letter glyph rendering). You can customize or reduce them for variety or performance reasons.
 - **Animation Speed**: Tweak `UPDATE_INTERVAL` to control how quickly columns update (default is 0.05 seconds). You can also tweak column speeds and the number of columns.
-
-## Additional Notes
-
-- If you see an error about `'NoneType' object has no attribute 'get'`, confirm that `secrets.py` is present, your library versions match 9.x, and you have `"timezone"` spelled correctly.
-- For truly rendering letters/symbols (instead of single green dots), you’d need to update the code to draw text glyphs instead of pixels in a bitmap.
 
 ## License
 
