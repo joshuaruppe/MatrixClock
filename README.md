@@ -23,7 +23,7 @@ This project displays a digital clock on the left side of a 64×32 RGB LED matri
 - **USB Cable**
   - For programming and powering the MatrixPortal from your computer or USB power supply.
 
-## Software / Libraries
+## Software / Libraries / Required Files
 
 - **CircuitPython 9.2.1** (or matching 9.x release)
 - **Adafruit CircuitPython Library Bundle (9.x)**  
@@ -69,6 +69,7 @@ This project displays a digital clock on the left side of a 64×32 RGB LED matri
    CIRCUITPY/
    ├── code.py
    ├── secrets.py
+   ├── settings.toml
    └── lib/
        ├── adafruit_display_text/
        ├── adafruit_matrixportal/
