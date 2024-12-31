@@ -1,9 +1,9 @@
 import random
 import time
 import displayio
+import terminalio
 from adafruit_matrixportal.matrixportal import MatrixPortal
 from adafruit_display_text import label
-import terminalio
 
 # =============================================================================
 # Configuration & Constants
