@@ -1,5 +1,5 @@
 
-# MatrixPortal "Matrix Rain" Clock
+# MatrixPortal "Matrix Code" Clock
 
 This project displays a digital clock on the left side of a 64×32 RGB LED matrix, separated by a thin green divider line, with a “Matrix rain” animation on the right side. The code runs on an Adafruit MatrixPortal M4 (or similar CircuitPython-compatible boards with the MatrixPortal library).
 
