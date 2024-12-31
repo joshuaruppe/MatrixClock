@@ -46,12 +46,12 @@ This project displays a digital clock on the left side of a 64×32 RGB LED matri
 
 - A settings.toml file on the CIRCUITPY root for Adafruit IO and timezone configuration:
 
-```toml
+  ```toml
 
-AIO_USERNAME = "your_username"
-AIO_KEY = "your_key"
+  AIO_USERNAME = "your_username"
+  AIO_KEY = "your_key"
 
-```
+  ```
 
 ## Setup & Installation
 
