@@ -108,14 +108,14 @@ while True:
         print("Retrying in 3 seconds...")
         time.sleep(3)
 
-print("Fetching current time...")
+print("Hacking current time...")
 while True:
     try:
         matrix.network.get_local_time()
         print("Time Hacked!")
         break
     except Exception as e:
-        print(f"Failed to fetch time: {e}")
+        print(f"Failed to hack time: {e}")
         print("Retrying in 3 seconds...")
         time.sleep(3)
 
@@ -177,13 +177,13 @@ while True:
     if time.time() - last_sync_time >= SYNC_INTERVAL:
         while True:
             try:
-                print("Syncing time with NTP server...")
+                print("Hacking NTP server...")
                 matrix.network.get_local_time()
                 last_sync_time = time.time()
                 print("Time synced!")
                 break
             except AttributeError as e:
-                print(f"Failed to sync time: {e}")
+                print(f"Failed to hack time: {e}")
                 print("Retrying in 1 minute...")
                 time.sleep(60)
 
