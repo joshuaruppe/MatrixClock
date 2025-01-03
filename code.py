@@ -6,7 +6,7 @@ from adafruit_matrixportal.matrixportal import MatrixPortal
 from adafruit_display_text import label
 
 # =============================================================================
-# Configuration & Constants
+# Configuration, Constants & Variables
 # =============================================================================
 
 WIDTH = 64
@@ -24,6 +24,11 @@ UPDATE_INTERVAL = 0.05
 
 MATRIX_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()<>?[]{}"
 CHAR_PROBABILITY = 0.2
+
+SYNC_INTERVAL = 6 * 60 * 60  # 6 hours in seconds
+
+last_minute = None
+last_sync_time = time.time()
 
 # =============================================================================
 # Helper Functions
@@ -142,8 +147,6 @@ matrix.display.root_group = root_group
 
 columns = [create_column() for _ in range(NUM_COLUMNS)]
 
-last_minute = None
-
 # -----------------------------------------------------------------------------
 # Main loop
 # -----------------------------------------------------------------------------
@@ -156,5 +159,15 @@ while True:
 
     update_columns(columns)
     draw_columns(bitmap, columns)
+
+    if time.time() - last_sync_time >= SYNC_INTERVAL:
+        try:
+            print("Hacking time with NTP server...")
+            matrix.network.get_local_time()
+            last_sync_time = time.time()
+            print("Time Hacked!")
+        except AttributeError as e:
+            print(f"Failed to hack time: {e}")
+            time.sleep(60)
 
     time.sleep(UPDATE_INTERVAL)
