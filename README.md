@@ -19,7 +19,7 @@ This project displays a digital clock on the left side of a 64×32 RGB LED matri
   - Other panel sizes could work with code adjustments (width, height).
 - **5V Power Supply**
   - High-current supply recommended (e.g., 5V 4A or above).
-- **USB Cable**
+- **USB-C Cable**
   - For programming and powering the MatrixPortal from your computer or USB power supply.
 
 ## Software / Libraries / Required Files
