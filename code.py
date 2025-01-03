@@ -25,7 +25,7 @@ UPDATE_INTERVAL = 0.05
 MATRIX_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()<>?[]{}"
 CHAR_PROBABILITY = 0.2
 
-SYNC_INTERVAL = 6 * 60 * 60  # 6 hours in seconds
+SYNC_INTERVAL = 6 * 60 * 60
 
 last_minute = None
 last_sync_time = time.time()
@@ -35,18 +35,18 @@ last_sync_time = time.time()
 # =============================================================================
 
 def create_palette():
-    p = displayio.Palette(256)
+    palette = displayio.Palette(256)
     for i in range(256):
         if i < 200:
             green = int(100 + (i / 200) * 155)
-            p[i] = (0, green, 0)
+            palette[i] = (0, green, 0)
         else:
             green = min(255, int(100 + ((i - 200) / 56) * 155))
             blue = min(255, int((i - 200) * 5))
             red = min(255, int((i - 200) * 3))
-            p[i] = (red, green, blue)
-    p[0] = (0, 0, 0)
-    return p
+            palette[i] = (red, green, blue)
+    palette[0] = (0, 0, 0)
+    return palette
 
 def create_column():
     return {
@@ -57,29 +57,29 @@ def create_column():
     }
 
 def update_columns(columns):
-    for col in columns:
-        col["y"] += col["speed"]
+    for column in columns:
+        column["y"] += column["speed"]
 
-        if col["y"] >= COLUMN_HEIGHT:
-            col["y"] = random.randint(-COLUMN_HEIGHT // 2, -1)
-            col["trail"] = []
-            col["trail_length"] = random.randint(3, 6)
+        if column["y"] >= COLUMN_HEIGHT:
+            column["y"] = random.randint(-COLUMN_HEIGHT // 2, -1)
+            column["trail"] = []
+            column["trail_length"] = random.randint(3, 6)
 
         if random.random() < CHAR_PROBABILITY:
             new_char = random.choice(MATRIX_CHARS)
         else:
             new_char = " "
 
-        col["trail"].insert(0, new_char)
+        column["trail"].insert(0, new_char)
 
-        if len(col["trail"]) > col["trail_length"]:
-            col["trail"].pop()
+        if len(column["trail"]) > column["trail_length"]:
+            column["trail"].pop()
 
 def draw_columns(bitmap, columns):
-    for col_index, col in enumerate(columns):
+    for col_index, column in enumerate(columns):
         x = col_index
-        for trail_index, char in enumerate(col["trail"]):
-            y = col["y"] - trail_index
+        for trail_index, char in enumerate(column["trail"]):
+            y = column["y"] - trail_index
             if 0 <= y < COLUMN_HEIGHT:
                 if char == " ":  
                     bitmap[x, y] = 0
@@ -98,12 +98,26 @@ print("Starting MP M4...")
 matrix = MatrixPortal(status_neopixel=None)
 
 print("Connecting to Wi-Fi...")
-matrix.network.connect()
-print("Connected to Wi-Fi!")
+while True:
+    try:
+        matrix.network.connect()
+        print("Connected to Wi-Fi!")
+        break
+    except Exception as e:
+        print(f"Failed to connect to Wi-Fi: {e}")
+        print("Retrying in 3 seconds...")
+        time.sleep(3)
 
 print("Fetching current time...")
-matrix.network.get_local_time()
-print("Time Hacked!")
+while True:
+    try:
+        matrix.network.get_local_time()
+        print("Time Hacked!")
+        break
+    except Exception as e:
+        print(f"Failed to fetch time: {e}")
+        print("Retrying in 3 seconds...")
+        time.sleep(3)
 
 root_group = displayio.Group()
 
@@ -161,13 +175,16 @@ while True:
     draw_columns(bitmap, columns)
 
     if time.time() - last_sync_time >= SYNC_INTERVAL:
-        try:
-            print("Hacking time with NTP server...")
-            matrix.network.get_local_time()
-            last_sync_time = time.time()
-            print("Time Hacked!")
-        except AttributeError as e:
-            print(f"Failed to hack time: {e}")
-            time.sleep(60)
+        while True:
+            try:
+                print("Syncing time with NTP server...")
+                matrix.network.get_local_time()
+                last_sync_time = time.time()
+                print("Time synced!")
+                break
+            except AttributeError as e:
+                print(f"Failed to sync time: {e}")
+                print("Retrying in 1 minute...")
+                time.sleep(60)
 
     time.sleep(UPDATE_INTERVAL)
